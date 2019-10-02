@@ -1,5 +1,2 @@
-# UI Engineering challenge
-
-Thanks for your interest in EclecticIQ and the UI Engineering position!
-
-The assignment is described in `index.js`.
+# Jquery alternative challenge
+jQuery alternative test to use vanilla javascript for selecting things just like jQuery
