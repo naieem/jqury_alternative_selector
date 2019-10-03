@@ -8,12 +8,13 @@ function select(selector) {
   // When it's done, rename this file to `UI Assignment - <your name>.txt`,
   // and email it back.
   var strArr = selector.split(" ");
-  var doc = document;
+  var doc = new Array(document);
   if (strArr.length > 1) {
     for (const item of strArr) {
+      console.log(item);
       doc = getSelectorValue(doc, item);
-      console.log(doc);
     }
+    console.log(doc);
     return doc;
   } else {
     return getSelectorValue(doc, selector);
@@ -33,29 +34,37 @@ function getSelectorValue(doc, selector) {
 
 function classSelector(doc, selector) {
   var results = [];
-  var index=selector.indexOf(".");
-  var className = selector.slice(index+1,selector.length);
-  var elements = doc.getElementsByClassName(className);
-  for (const item of elements) {
-    results.push(item);
+  var index = selector.indexOf(".");
+  var className = selector.slice(index + 1, selector.length);
+  console.log(className);
+  for (const itm of doc) {
+    var elements = itm.getElementsByClassName(className);
+    for (const item of elements) {
+      results.push(item);
+    } 
   }
   return results;
 }
 
 function idSelector(doc, selector) {
   var results = [];
-  var index=selector.indexOf("#");
-  var idName = selector.slice(index+1,selector.length);
-  results.push(doc.getElementById(idName));
+  var index = selector.indexOf("#");
+  var idName = selector.slice(index + 1, selector.length);
+  console.log(idName);
+  for (const itm of doc) {
+    results.push(itm.getElementById(idName));
+  }
   return results;
 }
 
 function tagSelector(doc, selector) {
   var results = [];
   var tagName = selector.slice(0, selector.length);
-  var elements = doc.getElementsByTagName(tagName);
-  for (const item of elements) {
-    results.push(item);
+  for (const itm of doc) {
+    var elements = itm.getElementsByTagName(tagName);
+    for (const item of elements) {
+      results.push(item);
+    } 
   }
   return results;
 }
