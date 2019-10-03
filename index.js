@@ -11,52 +11,75 @@ function select(selector) {
   var doc = new Array(document);
   if (strArr.length > 1) {
     for (const item of strArr) {
-      console.log(item);
       doc = getSelectorValue(doc, item);
     }
-    console.log(doc);
     return doc;
   } else {
     return getSelectorValue(doc, selector);
   }
 }
 
+/**
+ * Decision maker for selectors
+ * @param {*} doc 
+ * @param {*} selector 
+ */
 function getSelectorValue(doc, selector) {
-  switch (selector[0]) {
-    case '.':
-      return classSelector(doc, selector);
-    case '#':
-      return idSelector(doc, selector);
+  var SelectorType = null;
+  var modSelector=[];
+  var modSelectorClass=selector.split(".");
+  var modSelectorId=selector.split("#");
+  if(modSelectorClass.length > 1){
+    SelectorType = "CLASS";
+    modSelector=modSelectorClass;
+  } else if (modSelectorId.length > 1) {
+    SelectorType = "ID";
+    modSelector=modSelectorId;
+  } else {
+    SelectorType = null;
+  }
+  switch (SelectorType) {
+    case 'CLASS':
+      return classSelector(doc, modSelector[1]);
+    case 'ID':
+      return idSelector(doc, modSelector[1]);
     default:
       return tagSelector(doc, selector);
   }
 }
 
+/**
+ * Class Selector Value returner
+ * @param {*} doc 
+ * @param {*} selector 
+ */
 function classSelector(doc, selector) {
   var results = [];
-  var index = selector.indexOf(".");
-  var className = selector.slice(index + 1, selector.length);
-  console.log(className);
   for (const itm of doc) {
-    var elements = itm.getElementsByClassName(className);
+    var elements = itm.getElementsByClassName(selector);
     for (const item of elements) {
       results.push(item);
-    } 
+    }
   }
   return results;
 }
-
+/**
+ * Id Selector Value returner
+ * @param {*} doc 
+ * @param {*} selector 
+ */
 function idSelector(doc, selector) {
   var results = [];
-  var index = selector.indexOf("#");
-  var idName = selector.slice(index + 1, selector.length);
-  console.log(idName);
   for (const itm of doc) {
-    results.push(itm.getElementById(idName));
+    results.push(itm.getElementById(selector));
   }
   return results;
 }
-
+/**
+ * Tag Selector Value returner
+ * @param {*} doc 
+ * @param {*} selector 
+ */
 function tagSelector(doc, selector) {
   var results = [];
   var tagName = selector.slice(0, selector.length);
@@ -64,7 +87,7 @@ function tagSelector(doc, selector) {
     var elements = itm.getElementsByTagName(tagName);
     for (const item of elements) {
       results.push(item);
-    } 
+    }
   }
   return results;
 }
