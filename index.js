@@ -82,9 +82,8 @@ function idSelector(doc, selector) {
  */
 function tagSelector(doc, selector) {
   var results = [];
-  var tagName = selector.slice(0, selector.length);
   for (const itm of doc) {
-    var elements = itm.getElementsByTagName(tagName);
+    var elements = itm.getElementsByTagName(selector);
     for (const item of elements) {
       results.push(item);
     }
