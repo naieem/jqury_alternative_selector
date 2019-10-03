@@ -5,9 +5,9 @@ beforeAll(async () => {
   document.body.innerHTML = await fs.readFile('./content.html', 'utf8');
 });
 
-// test('select returns an array', () => {
-//   expect(Array.isArray(select('h1'))).toBe(true);
-// });
+test('select returns an array', () => {
+  expect(Array.isArray(select('h1'))).toBe(true);
+});
 
 test('select supports ids', () => {
   expect(select('#company')).toHaveLength(1);
